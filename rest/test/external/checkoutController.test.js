@@ -64,7 +64,7 @@ describe('Checkout Controller', () => {
             expect(response.body).to.have.property('error', 'Token inválido');
         })
 
-        it.only('Realizar checkout válido com o método Boleto, deve retornar 200.', async () => {
+        it('Realizar checkout válido com o método Boleto, deve retornar 200.', async () => {
             // Passo 1: Obter token.
             const loginResponse = await request('http://localhost:3000/api')
                 .post('/users/login')
@@ -91,7 +91,7 @@ describe('Checkout Controller', () => {
             expect(response.body).to.have.property('paymentMethod', 'boleto');
         });
 
-        it.only('Realizar checkout válido com o método Cartão, deve retornar 200.', async () => {
+        it('Realizar checkout válido com o método Cartão, deve retornar 200.', async () => {
             // Passo 1: Obter token.
             const loginResponse = await request('http://localhost:3000/api')
                 .post('/users/login')
