@@ -21,12 +21,13 @@
   "homepage": "https://github.com/juliodelimas/pgats-2025-02-base#readme",
   "dependencies": {
     "apollo-server-express": "^3.13.0",
+    "chai": "^6.2.0",
     "express": "^4.21.2",
+    "faker": "^6.6.6",
     "graphql": "^16.11.0",
     "jsonwebtoken": "^9.0.2",
-    "sinon": "^21.0.0",
-    "chai": "^6.2.0",
     "mocha": "^11.7.3",
+    "sinon": "^21.0.0",
     "supertest": "^7.1.4",
     "swagger-ui-express": "^5.0.1"
   }

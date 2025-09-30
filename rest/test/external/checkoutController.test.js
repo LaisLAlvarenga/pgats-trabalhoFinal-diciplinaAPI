@@ -8,7 +8,7 @@ describe('Checkout Controller', () => {
             const loginResponse = await request('http://localhost:3000/api')
                 .post('/users/login')
                 .send({
-                    email: 'lais@teste.com',
+                    email: 'alice@email.com',
                     password: '123456'
                 });
             const token = loginResponse.body.token;
@@ -44,7 +44,7 @@ describe('Checkout Controller', () => {
             const loginResponse = await request('http://localhost:3000/api')
                 .post('/users/login')
                 .send({
-                    email: 'lais@teste.com',
+                    email: 'alice@email.com',
                     password: '12345678'
                 });
             const token = loginResponse.body.token;
@@ -69,7 +69,7 @@ describe('Checkout Controller', () => {
             const loginResponse = await request('http://localhost:3000/api')
                 .post('/users/login')
                 .send({
-                    email: 'lais@teste.com',
+                    email: 'alice@email.com',
                     password: '123456'
                 });
 
@@ -96,7 +96,7 @@ describe('Checkout Controller', () => {
             const loginResponse = await request('http://localhost:3000/api')
                 .post('/users/login')
                 .send({
-                    email: 'lais@teste.com',
+                    email: 'alice@email.com',
                     password: '123456'
                 });
 

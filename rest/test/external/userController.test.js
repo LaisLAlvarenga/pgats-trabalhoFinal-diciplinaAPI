@@ -1,21 +1,24 @@
 const { expect } = require("chai");
 const request = require("supertest");
+const faker = require("faker");
 describe('User Controller', () => {
     describe('POST /users/register', () => {
         it('Ao informar dados válidos, deve retornar 201 Created', async () => {
+            const fakeEmail = faker.internet.email();
+
             // Passo 1: Envio da requisição.
             const response = await request('http://localhost:3000/api')
                 .post('/users/register')
                 .send({
-                    name: 'Lua',
-                    email: 'lua@teste.com',
+                    name: 'User Test',
+                    email: fakeEmail,
                     password: '123456'
                 });
 
             // Passo 2: Verificação da resposta.
             expect(response.status).to.equal(201);
-            expect(response.body.user).to.have.property('name', 'Lua');
-            expect(response.body.user).to.have.property('email', 'lua@teste.com');
+            expect(response.body.user).to.have.property('name', 'User Test');
+            expect(response.body.user).to.have.property('email', fakeEmail);
         });
 
         it('Ao informar um email já cadastrado, deve retornar 400 Bad Request', async () => {
@@ -23,8 +26,8 @@ describe('User Controller', () => {
             const response = await request('http://localhost:3000/api')
                 .post('/users/register')
                 .send({
-                    name: 'Lais',
-                    email: 'lais@teste.com',    
+                    name: 'Alice',
+                    email: 'alice@email.com',    
                     password: '123456'
                 });
 
@@ -40,7 +43,7 @@ describe('User Controller', () => {
             const response = await request('http://localhost:3000/api')
                 .post('/users/login')
                 .send({
-                    email: 'lais@teste.com',
+                    email: 'alice@email.com',
                     password: '123456'
                 });
 
@@ -54,7 +57,7 @@ describe('User Controller', () => {
             const response = await request('http://localhost:3000/api')
                 .post('/users/login')
                 .send({
-                    email: 'lais@teste.com',
+                    email: 'alice@email.com',
                     password: '12345678' // Senha incorreta
                 });
 
