@@ -49,7 +49,7 @@ describe('User Controller', () => {
             expect(response.body).to.have.property('token');
         });
 
-        it.only('Ao informar credenciais inválidas, deve retornar 401 Unauthorized.', async () => {
+        it('Ao informar credenciais inválidas, deve retornar 401 Unauthorized.', async () => {
             // Passo 1: Envio da requisição.
             const response = await request('http://localhost:3000/api')
                 .post('/users/login')

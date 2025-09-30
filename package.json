@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "mocha rest/test/**/*.test.js --timeout 10000",
     "test-external": "mocha rest/test/external/**/*.test.js --timeout 10000"
   },
   "repository": {
