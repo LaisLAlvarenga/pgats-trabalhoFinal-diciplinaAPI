@@ -1,24 +1,27 @@
-const { expect } = require("chai");
 const request = require("supertest");
-const faker = require("faker");
+const { expect } = require("chai");
+const { faker } = require('@faker-js/faker');
+
+// Gerar dados aleatórios para os testes.
+const email = faker.internet.email();
+const numero = faker.number.int();
+
 describe('User Controller', () => {
     describe('POST /users/register', () => {
         it('Ao informar dados válidos, deve retornar 201 Created', async () => {
-            const fakeEmail = faker.internet.email();
-
             // Passo 1: Envio da requisição.
             const response = await request('http://localhost:3000/api')
                 .post('/users/register')
                 .send({
-                    name: 'User Test',
-                    email: fakeEmail,
+                    name: `UserTest ${numero}`,
+                    email: email,
                     password: '123456'
                 });
 
             // Passo 2: Verificação da resposta.
             expect(response.status).to.equal(201);
-            expect(response.body.user).to.have.property('name', 'User Test');
-            expect(response.body.user).to.have.property('email', fakeEmail);
+            expect(response.body.user).to.have.property('name', `UserTest ${numero}`);
+            expect(response.body.user).to.have.property('email', email);
         });
 
         it('Ao informar um email já cadastrado, deve retornar 400 Bad Request', async () => {
