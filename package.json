@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha rest/test/**/*.test.js --timeout 10000",
+    "start": "node rest/server.js",
+    "test": "mocha rest/test/controller/**/*.test.js --timeout 10000",
     "test-external": "mocha rest/test/external/**/*.test.js --timeout 10000"
   },
   "repository": {
@@ -23,12 +24,14 @@
     "apollo-server-express": "^3.13.0",
     "chai": "^6.2.0",
     "express": "^4.21.2",
-    "faker": "^6.6.6",
     "graphql": "^16.11.0",
     "jsonwebtoken": "^9.0.2",
     "mocha": "^11.7.3",
     "sinon": "^21.0.0",
     "supertest": "^7.1.4",
     "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^10.0.0"
   }
 }
