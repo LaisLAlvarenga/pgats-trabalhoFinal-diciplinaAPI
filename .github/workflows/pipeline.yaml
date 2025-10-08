@@ -17,6 +17,9 @@ jobs:
 
       - name: Instalação das dependências.
         run: npm install
+
+      - name: Execução dos testes com Mock.
+        run: npm run test-controller
       
       - name: Levantar a API.
         run: npm start &
@@ -27,5 +30,4 @@ jobs:
       - name: Execução dos testes de API via HTTP.
         run: npm run test-external
       
-      - name: Execução dos testes.
-        run: npm run test-controller
+      
