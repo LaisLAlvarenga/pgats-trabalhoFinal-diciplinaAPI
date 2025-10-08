@@ -47,7 +47,7 @@ describe('Checkout Controller', () => {
             // Envio da requisição.
             const response = await request('http://localhost:3000/api')
                 .post('/checkout')
-                .set('Authorization', `Bearer ${token}`)
+                .set('Authorization', `Bearer 147741`)
                 .send({
                     "items": [{"productId":1,"quantity":2}],
                     "freight": 20,
