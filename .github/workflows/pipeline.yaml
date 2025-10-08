@@ -26,3 +26,6 @@ jobs:
       
       - name: Execução dos testes de API via HTTP.
         run: npm run test-external
+      
+      - name: Execução dos testes.
+        run: npm run test-controller
