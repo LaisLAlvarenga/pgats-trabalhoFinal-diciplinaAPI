@@ -3,17 +3,21 @@ const {expect} = require('chai');
 
 describe('Checkout Controller', () => {
     describe('POST /checkout', () => {
-        it('Ao informar algo inválido no checkout, deve retornar 400 Bad Request.', async () => {
-            // Passo 1: Obter token.
+        let token = null;
+
+        beforeEach(async () => {
+            // Obter token.
             const loginResponse = await request('http://localhost:3000/api')
                 .post('/users/login')
                 .send({
                     email: 'alice@email.com',
                     password: '123456'
                 });
-            const token = loginResponse.body.token;
-    
-            // Passo 2: Envio da requisição.
+            token = loginResponse.body.token;
+        });
+
+        it('Ao informar algo inválido no checkout, deve retornar 400 Bad Request.', async () => {
+            // Envio da requisição.
             const response = await request('http://localhost:3000/api')
                 .post('/checkout')
                 .set('Authorization', `Bearer ${token}`)
@@ -34,22 +38,13 @@ describe('Checkout Controller', () => {
                     }
                 });
 
-            // Passo 3: Verificação da resposta.
+            // Verificação da resposta.
             expect(response.status).to.equal(400);
             expect(response.body).to.have.property('error', 'Produto não encontrado');
         });
 
-        it('Ao informar token inválido no checkout, deve retornar 401 Unauthorized.', async () => {
-            // Passo 1: Obter token.
-            const loginResponse = await request('http://localhost:3000/api')
-                .post('/users/login')
-                .send({
-                    email: 'alice@email.com',
-                    password: '12345678'
-                });
-            const token = loginResponse.body.token;
-    
-            // Passo 2: Envio da requisição.
+        it('Ao informar token inválido no checkout, deve retornar 401 Unauthorized.', async () => {    
+            // Envio da requisição.
             const response = await request('http://localhost:3000/api')
                 .post('/checkout')
                 .set('Authorization', `Bearer ${token}`)
@@ -59,24 +54,16 @@ describe('Checkout Controller', () => {
                     "paymentMethod": "boleto"
                 });
                 
-            // Passo 3: Verificação da resposta.
+            // Verificação da resposta.
             expect(response.status).to.equal(401);
             expect(response.body).to.have.property('error', 'Token inválido');
         })
 
         it('Realizar checkout válido com o método Boleto, deve retornar 200.', async () => {
-            // Passo 1: Obter token.
-            const loginResponse = await request('http://localhost:3000/api')
-                .post('/users/login')
-                .send({
-                    email: 'alice@email.com',
-                    password: '123456'
-                });
-
-            // Passo 2: Envio da requisição.
+            // Envio da requisição.
             const response = await request('http://localhost:3000/api')
                 .post('/checkout')
-                .set('Authorization', `Bearer ${loginResponse.body.token}`)
+                .set('Authorization', `Bearer ${token}`)
                 .send({
                     "items": [{
                         "productId":1,
@@ -86,24 +73,16 @@ describe('Checkout Controller', () => {
                     "paymentMethod": "boleto"
                 });
 
-            // Passo 3: Verificação da resposta.
+            // Verificação da resposta.
             expect(response.status).to.equal(200);
             expect(response.body).to.have.property('paymentMethod', 'boleto');
         });
 
         it('Realizar checkout válido com o método Cartão, deve retornar 200.', async () => {
-            // Passo 1: Obter token.
-            const loginResponse = await request('http://localhost:3000/api')
-                .post('/users/login')
-                .send({
-                    email: 'alice@email.com',
-                    password: '123456'
-                });
-
-            // Passo 2: Envio da requisição.
+            // Envio da requisição.
             const response = await request('http://localhost:3000/api')
                 .post('/checkout')
-                .set('Authorization', `Bearer ${loginResponse.body.token}`)
+                .set('Authorization', `Bearer ${token}`)
                 .send({
                     "items": [{
                         "productId":1,
@@ -119,7 +98,7 @@ describe('Checkout Controller', () => {
                     }
                 });
 
-            // Passo 3: Verificação da resposta.
+            // Verificação da resposta.
             expect(response.status).to.equal(200);
             expect(response.body).to.have.property('paymentMethod', 'credit_card');
         });
